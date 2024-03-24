@@ -39,6 +39,4 @@ public class OrderBook {
 
     public void setBookId(Long bookId) {
     }
-
-    // Constructors, getters, and setters
 }
