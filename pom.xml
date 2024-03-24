@@ -63,7 +63,17 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.4.2.Final</version> <!-- Replace with the appropriate version -->
+        </dependency>
+
+
     </dependencies>
+
+
 
     <build>
         <plugins>

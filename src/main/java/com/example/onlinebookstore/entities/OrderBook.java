@@ -20,23 +20,25 @@ public class OrderBook {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    public Object get() {
-        // Method body
-        return null; // Replace null with the actual data to return
+    public Long getOrderId() {
+        if (order != null) {
+            return order.getId();
+        }
+        return null;
     }
 
-    public boolean getOrderId() {
-        // Method body
-        // Return true or false based on some condition
-        return  true;
+    public Long getBookId() {
+        if (book != null) {
+            return book.getId();
+        }
+        return null;
     }
 
-    public boolean getBookId() {
-        // Method body
-        // Return true or false based on some condition
-        return  true;
+    public void setOrderId(Long orderId) {
     }
 
-    // Constructors, getters and setters, and any additional methods
+    public void setBookId(Long bookId) {
+    }
+
+    // Constructors, getters, and setters
 }
-
