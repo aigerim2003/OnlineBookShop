@@ -1,8 +1,7 @@
 package com.example.onlinebookstore.controllers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.example.onlinebookstore.dto.BookDTO;
 import com.example.onlinebookstore.entities.Book;
@@ -44,7 +43,6 @@ public class BookRestControllerTest {
         book.setGenre("Sample Genre");
         book.setPrice(BigDecimal.valueOf(19.99));
 
-        // Mocking the behavior of bookService.getBookById to return Optional<Book>
         when(bookService.getBookById(1L)).thenReturn(Optional.of(book));
 
         mockMvc.perform(get("/api/books/1"))
@@ -56,5 +54,38 @@ public class BookRestControllerTest {
                 .andExpect(jsonPath("$.price", is(19.99)));
     }
 
-    // Other test methods
+    @Test
+    public void testCreateBook() throws Exception {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTitle("New Book");
+        bookDTO.setAuthor("New Author");
+        bookDTO.setGenre("New Genre");
+        bookDTO.setPrice(BigDecimal.valueOf(24.99));
+
+        mockMvc.perform(post("/api/books")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(bookDTO)))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void testUpdateBook() throws Exception {
+        BookDTO updatedBookDTO = new BookDTO();
+        updatedBookDTO.setId(1L);
+        updatedBookDTO.setTitle("Updated Book");
+        updatedBookDTO.setAuthor("Updated Author");
+        updatedBookDTO.setGenre("Updated Genre");
+        updatedBookDTO.setPrice(BigDecimal.valueOf(29.99));
+
+        mockMvc.perform(put("/api/books/1")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(updatedBookDTO)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteBook() throws Exception {
+        mockMvc.perform(delete("/api/books/1"))
+                .andExpect(status().isOk());
+    }
 }

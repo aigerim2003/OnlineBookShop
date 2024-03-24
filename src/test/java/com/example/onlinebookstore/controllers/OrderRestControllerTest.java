@@ -1,10 +1,10 @@
 package com.example.onlinebookstore.controllers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.example.onlinebookstore.dto.OrderDTO;
+import com.example.onlinebookstore.entities.Order;
 import com.example.onlinebookstore.services.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -47,5 +47,34 @@ public class OrderRestControllerTest {
         mockMvc.perform(get("/api/orders/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1))); // Add other assertions for properties as needed
+    }
+
+    @Test
+    public void testCreateOrder() throws Exception {
+        OrderDTO orderDTO = new OrderDTO();
+        // Set properties of orderDTO as needed for testing
+
+        mockMvc.perform(post("/api/orders")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(orderDTO)))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void testUpdateOrder() throws Exception {
+        OrderDTO updatedOrderDTO = new OrderDTO();
+        updatedOrderDTO.setId(1L);
+        // Set other properties of updatedOrderDTO as needed for testing
+
+        mockMvc.perform(put("/api/orders/1")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(updatedOrderDTO)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteOrder() throws Exception {
+        mockMvc.perform(delete("/api/orders/1"))
+                .andExpect(status().isOk());
     }
 }

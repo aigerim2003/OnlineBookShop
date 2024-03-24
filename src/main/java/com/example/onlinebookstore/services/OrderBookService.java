@@ -23,7 +23,7 @@ public class OrderBookService {
         return orderBookRepository.findById(id);
     }
 
-    public OrderBook createOrderBook(OrderBookDTO orderBookDto) {
+    public OrderBook createOrderBook(OrderBook orderBookDto) {
         OrderBook orderBook = mapOrderBookDtoToEntity(orderBookDto);
         return orderBookRepository.save(orderBook);
     }
