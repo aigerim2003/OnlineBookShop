@@ -1,6 +1,7 @@
 package com.example.onlinebookstore.dto;
 
-public class UserDTO {
+import com.example.onlinebookstore.entities.User;
+public class UserDTO extends User {
     private Long id;
     private String name;
     private String email;
@@ -9,27 +10,24 @@ public class UserDTO {
         return id;
     }
 
-    public UserDTO setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public UserDTO setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public UserDTO setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 }
 
